@@ -1,0 +1,8 @@
+2004040 Lucas   Robertson       GreenField-PK   2004    83.22   130     54     
+3019089 Olivia  King            Lasal           2009    58.65   120     79     
+4020023 Emma    Mason           Laval           2008    55.90   105     105    
+8100984 Tom     Li              NDG             2016    73.00   130     32     
+2399089 Mia     Noah            Anjou           2005    79.19   150     90     
+7790128 Madison Logan           Montreal        2017    45.90   110     97     
+4880032 Ella    Ryan            St-Laurent      1999    65.12   130     61     
+5452578 Tina    Connor          Montreal-EST    2005    77.49   130     44       

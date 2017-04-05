@@ -1,0 +1,12 @@
+834400	HydroEcho    HydroEcho	1980	230019	Monthly		97088.70
+182317  Janitorial   TopJany    1998	132571	 820	16.85	13817
+718302	LunaPhone    LunaPhone	1976	185201    bi-monthly	102391
+682317	TopNotchInternet	 TopNotchInternet 1993     368562  Trimester   23008.45		
+405312	USReader	PocketJournal	1960	130019	Weekly	97088.70
+236908  SnowRemoval	WhiteAngel	2001	278919	901	50	45050
+119073  Painting	ParadisePaint	2013	678000	208	17.5	3640	
+182317  Janitorial	TopJany	 1982	152531	 340	16.85	5729
+894097	HydroEcho       HydroEcho	1980	250519	Monthly		88013.20
+216438  SnowRemoval	WhiteAngel	2015	898010	823	55	45265
+614109	TopNotchInternet	 TopNotchInternet 1993     388580  Trimester   22348.45
+
