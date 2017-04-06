@@ -1,3 +1,12 @@
+//Kevin Tan 40022733, Sagar Patel 40029417
+//COMP249
+//Assignment #4
+//April 10, 2017
+
+/*
+Parent class for all the different types of employees that share these common attributes, also includes implementation of methods in Ordered interface which will be inherited by the
+child classes,
+ */
 package a4_40022733_40029417;
 
 public class Employee implements Ordered{
@@ -87,6 +96,8 @@ public class Employee implements Ordered{
         return false;
     }
 
+    //Implementation of Ordered interface methods, which is used to compare hireYears of two Employee objects 
+    //Only implemented here since child classes will inherit and all have hireYear attribute
     public boolean precedes(Object ob) {
         if(ob.getClass() != this.getClass() || ob == null){
             return false;
@@ -109,6 +120,7 @@ public class Employee implements Ordered{
         return false;
     }
     
+    //Clone to prevent any backdoors by returning pointers in the LinkedList
     public Employee clone(){
         return new Employee(this);
     }

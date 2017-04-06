@@ -1,3 +1,12 @@
+//Kevin Tan 40022733, Sagar Patel 40029417
+//COMP249
+//Assignment #4
+//April 10, 2017
+
+/*
+This program utilizes File IO, ArrayLists, and LinkedLists(built from scratch) to create a payment system that handles Employee records stored in txt files
+and performs operations on this data with the use of the above to make calculations and organize the data.
+*/
 package a4_40022733_40029417;
 
 import java.io.*;
@@ -8,6 +17,9 @@ public class Main {
 
     static Scanner console = new Scanner(System.in);
 
+    //All three add methods call this method, it is used to prompt the user for all the input necessary for a new record, additionally a String parameter is passed into the method to check what
+    //type of employee record is being added (to ask for the appropriate data), in the interest of preventing crashing these statements are in a try-catch statement
+    //If the user enters data that would cause an input mismatch exception it will be caught and they will be prompted again to enter the correct data.
     static Employee check(String type) {
         Employee temp = null;
             try {
@@ -53,6 +65,12 @@ public class Main {
         return temp;
     }
 
+    //addRecords
+    //Firstly these methods open a FileInputStream and read all the data into Object contructors, allowing it to initialize an object and add it into the ArrayList of objects passed into the method
+    //Then these methods will call the check method to return a valid record Object which will be stored with a pointer, the methods then check to see if the new record being returned by check
+    //contains a duplicate ID with the IDs already in the ArrayList, if there is a conflict the user must reenter the ID
+    //The methods add this record into the ArrayList and the user can continue or stop adding records
+    //Once user is done, the Objects in the ArrayList are overwritten into the input file.
     static void addFTRecords(ArrayList<FullTimeFaculty> ft, String fileName) throws FileNotFoundException {
         int ans = 0;
         Scanner read = new Scanner(new FileInputStream(fileName));
@@ -61,18 +79,18 @@ public class Main {
             ft.add(temp);
         }
         read.close();
-        System.out.println("Please add a record for full time faculty member");
+        System.out.println("Please enter information for new Full Time Faculty record: ");
         while (ans != -1) {
             FullTimeFaculty temp = (FullTimeFaculty) check("FT");
             while (ft.contains(temp)) {
-                System.out.println("Already have a person with that ID, please enter a new employee ID");
+                System.out.println("There is already an employee with that ID, please enter a new employee ID : ");
                 temp.setEmployeeID(console.nextLong());
             }
             ft.add(temp);
-            System.out.println("Record added, do you wish to enter a new record? (Enter -1 to stop)");
+            System.out.println("Record added. Do you wish to enter a new record? (Enter -1 to stop, 1 to continue)");
             ans = console.nextInt();
         }
-        System.out.println("Done adding full time faculty members, adding to text...");
+        System.out.println("Now updating records in txt file...");
         PrintWriter pw = new PrintWriter(fileName);
 
         for (FullTimeFaculty i : ft) {
@@ -89,18 +107,18 @@ public class Main {
             pt.add(temp);
         }
         read.close();
-        System.out.println("Please add a record for part time faculty member");
+        System.out.println("Please enter information for new Part Time Faculty record: ");
         while (ans != -1) {
             PartTimeFaculty temp = (PartTimeFaculty) check("PT");
             while (pt.contains(temp)) {
-                System.out.println("Already have a person with that ID, please enter a new employee ID");
+                System.out.println("There is already an employee with that ID, please enter a new employee ID : ");
                 temp.setEmployeeID(console.nextLong());
             }
             pt.add(temp);
-            System.out.println("Record added, do you wish to enter a new record? (Enter -1 to stop)");
+            System.out.println("Record added. Do you wish to enter a new record? (Enter -1 to stop, 1 to continue)");
             ans = console.nextInt();
         }
-        System.out.println("Done adding part time faculty members, adding to text...");
+        System.out.println("Now updating records in txt file...");
         PrintWriter pw = new PrintWriter(fileName);
         for (PartTimeFaculty i : pt) {
             pw.println(i);
@@ -118,22 +136,22 @@ public class Main {
             }
         }
         read.close();
-        System.out.println("Please add a record for teaching assistant");
+        System.out.println("Please enter information for new Teaching Assistant record: ");
         while (ans != -1) {
             TeachingAssistant temp = (TeachingAssistant) check("TA");
             while (ta.contains(temp)) {
-                System.out.println("Already have a person with that ID, please enter a new employee ID");
+                System.out.println("There is already an employee with that ID, please enter a new employee ID : ");
                 temp.setEmployeeID(console.nextLong());
             }
             if (!temp.getClassification().equals("Alum")) {
                 ta.add(temp);
             } else {
-                System.out.println("Will not be adding this record, classification is a Alum");
+                System.out.println("Alumnus cannot be TAs, record will be excluded.");
             }
-            System.out.println("Record added, do you wish to enter a new record? (Enter -1 to stop)");
+            System.out.println("Record added. Do you wish to enter a new record? (Enter -1 to stop, 1 to continue)");
             ans = console.nextInt();
         }
-        System.out.println("Done adding teaching assistant, adding to text...");
+        System.out.println("Now updating records in txt file...");
         PrintWriter pw = new PrintWriter(fileName);
         for (TeachingAssistant i : ta) {
             pw.println(i);
@@ -141,6 +159,13 @@ public class Main {
         pw.close();
     }
 
+    //This methods opens input streams for the two files passed in, then just as the add method, it initializes objects using the file data and adds these objects to the EmployeeList(LinkedList)
+    //the adding of the objects to an empty list is handled by the add method
+    //The a for loop is used to iterate through every node of the LinkedList using the getSize() method 
+    //Within each iteration an object is initialized using the getValue method which takes an index as a parameter, with this object for the TAs, the classification can be retrieved using
+    //the accessor methods and their salary can be calculate with the appropriate bonus based on their classification
+    //For Part Time Faculty the object is initialized and a bonus is calculated based on their number of students
+    //Once both loops are done the total Salaries of each type of Employee is printed
     static void findTermSalary(String TA, String PT) throws FileNotFoundException {
         Scanner readTA = new Scanner(new FileInputStream(TA)), readPT = new Scanner(new FileInputStream(PT));
         EmployeeList listTA = new EmployeeList(), listPT = new EmployeeList();
@@ -175,6 +200,9 @@ public class Main {
         System.out.println("The total term salary of teaching assistants and part time faculty is $" + new DecimalFormat("#.00").format(TAsum + PTsum) + "\n");
     }
 
+    //This method utilizes the EmployeeList LinkedList
+    //It iterates through all the Nodes of the LinkedList and finds the Object with the lowest and highest salary, this uses the getValue method of the linked list that returns a deep copy
+    //of the object in the Node at the index, the method then loops through a second time to find any records with the same salary as the highest/lowest, it then prints the results.
     static void findHighestLowestFTSalary(String FTfile) throws FileNotFoundException {
         Scanner readFT = new Scanner(new FileInputStream(FTfile));
         EmployeeList listFT = new EmployeeList();
@@ -183,7 +211,7 @@ public class Main {
         }
         readFT.close();
         FullTimeFaculty min = (FullTimeFaculty) listFT.getFirstValue(), max = (FullTimeFaculty) listFT.getFirstValue();
-        for (int i = 0; i < listFT.getSize(); i++) {
+        for (int i = 2; i <= listFT.getSize(); i++) {
             if (min.getSalary() > ((FullTimeFaculty) listFT.getValue(i)).getSalary()) {
                 min = (FullTimeFaculty) listFT.getValue(i);
             }
@@ -192,19 +220,24 @@ public class Main {
                 max = (FullTimeFaculty) listFT.getValue(i);
             }
         }
-        System.out.println("The max salary is: " + max.getSalary()+"\nThe min salary is: " + min.getSalary());
-        System.out.println("\nThese are the following records with max and min salary (with duplicates)");
+        String highest ="\n";
+        String lowest ="\n";
         for (int i = 1; i <= listFT.getSize(); i++) {
+            
             if (max.getSalary() == ((FullTimeFaculty) listFT.getValue(i)).getSalary()) {
-                System.out.println("Max: " + (FullTimeFaculty) listFT.getValue(i));
+                highest += listFT.getValue(i).toString() + "\n";
             }
             if (min.getSalary() == ((FullTimeFaculty) listFT.getValue(i)).getSalary()) {
-                System.out.println("Min: " + (FullTimeFaculty) listFT.getValue(i));
+                lowest += listFT.getValue(i).toString() + "\n";
             }
         }
-        
+        System.out.println("\nEmployee(s) with lowest salary: " + lowest + "\nEmployee(s) with highest salary: " + highest);
     }
 
+    //This methods uses the EmployeeList, once filled with all the Staff Objects from the records file, the list is iterated through with a for loop
+    //The method temporarily creates an object of the Node data at that index in the list, and checks the PerfCode of that Staff object, depending on the value a bonus is awarded on 
+    //top of their normal salary and this new salary is set into the Object using the mutator method available, once completee the PerfCode is defaulted to E and the now changed Object
+    //is written into the input file.
     static void increaseStaffSalary(String StaffFile) throws FileNotFoundException {
         Scanner readStaff = new Scanner(new FileInputStream(StaffFile));
         EmployeeList listStaff = new EmployeeList();
@@ -230,6 +263,7 @@ public class Main {
         writeStaff.close();
     }
 
+    //Initializes lists and catches FileNotFoundExceptions thrown by methods opening file streams.
     public static void main(String[] args) {
         ArrayList<TeachingAssistant> ta = new ArrayList<>();
         ArrayList<FullTimeFaculty> ft = new ArrayList<>();

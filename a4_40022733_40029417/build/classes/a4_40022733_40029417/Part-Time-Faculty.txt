@@ -5,4 +5,4 @@
 2399089 Mia     Noah            Anjou           2005    79.19   150     90     
 7790128 Madison Logan           Montreal        2017    45.90   110     97     
 4880032 Ella    Ryan            St-Laurent      1999    65.12   130     61     
-5452578 Tina    Connor          Montreal-EST    2005    77.49   130     44       
+5452578 Tina    Connor          Montreal-EST    2005    77.49   130     44          

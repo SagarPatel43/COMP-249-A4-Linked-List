@@ -1,3 +1,7 @@
+//Kevin Tan 40022733, Sagar Patel 40029417
+//COMP249
+//Assignment #4
+//April 10, 2017
 package a4_40022733_40029417;
 
 public class PartTimeFaculty extends Employee{
